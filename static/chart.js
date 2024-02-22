@@ -61,6 +61,7 @@ function btnStopStart() {
   x.innerHTML = "Start";
   } else if (x.innerHTML === "Start") {
    showGraph(document.getElementById("chartDiv"));
+   resetData();
    startData();
    x.innerHTML = "Stop";
   }
