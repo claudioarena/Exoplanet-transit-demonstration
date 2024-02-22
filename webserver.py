@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify, render_template, request
+from flask import Flask, Response, jsonify, render_template, request, redirect
 import json
 import threading
 from webcam import webcam
@@ -43,7 +43,7 @@ def select_webcam():
         result = request.form
         selected = int(result.getlist('webcams')[0])
         cam.select_webcam(selected)
-    return index()
+    return redirect("/")
 
 @app.route("/freeze_settings")
 def freeze_settings():
