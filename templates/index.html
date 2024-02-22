@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exoplanet Transit Demonstration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='chart.js') }}" defer></script>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+<body>
+    <h1>Exoplanet Transit Demonstration</h1>
+    <!--Selection of webcam-->
+<form method="post" action="/select_webcam" onsubmit="btnfreeze_reset()">
+      <label for="lang">Webcam</label>
+      <select name="webcams" id="lang">
+    {% for n in webcams %}
+    <option value="{{n}}" {{selected_webcam[n]}}>{{webcams[n]}}</option>"
+    {% endfor %}
+      </select>
+    <input type="submit" value="Select and Start" />
+</form>
+    <br/>
+        <button class="button" id="button_freeze" onclick="btnToggleFreeze()">Set to Manual camera settings</button>
+        <br/>
+    <img class="img" src="{{ url_for('video_feed') }}" onError="this.style.visibility = 'hidden'">
+<br/>
+
+<button class="button" id="button_show" onclick="btnToggleGraph()">Show</button>
+<button class="button" id="button_stop_start" onclick="btnStopStart()">Start</button>
+<button class="button" id="button_reset" onclick="btnResetData()">Reset</button>
+
+<div id="chartDiv" style="display:none">
+    <canvas id="lineChart" width="1000" height="300"></canvas>
+</div>
+
+</body>
+</html>
