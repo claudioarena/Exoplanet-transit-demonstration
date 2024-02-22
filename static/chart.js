@@ -108,7 +108,7 @@ function btnToggleFreeze() {
   }
  }
 
-function btnfreeze_reset() {
+function btnFreezeReset() {
   var x = document.getElementById("button_freeze");
   x.innerHTML = "Set to Manual camera settings";
 }
