@@ -7,7 +7,11 @@ The code use the image from the webcam to measure the overall brigthness of the 
 The planet is used to simulate a transit, and the measured brigthness is plotted over time.
 
 ## Example
-A demonstation of what can be obtained is shown here:
+A demonstation of what can be obtained is shown here: https://youtu.be/MxvssUAaK5Q
+
+<p align="center">
+<img align="center" src="/example/example.png" width="500">
+</p>
 
 ## What you need
 
