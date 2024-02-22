@@ -10,7 +10,6 @@ app = Flask(__name__)
 cam = webcam()
 
 def start_server(host, port, measure_masked=True, debug=False, threaded=True, user_reloader=False):
-    global cam
     thread = threading.Thread(target=cam.process_frame, args=(measure_masked,))
     thread.daemon = True
     thread.start()
@@ -34,29 +33,25 @@ def video_feed():
     return Response(get_frame(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
 def get_frame():
-    global cam
     while True:
         image_bytes = cam.get_frame()
         yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
 
-@app.route("/select_webcam", methods=['POST', 'GET'])
+@app.route("/select_webcam", methods=['POST'])
 def select_webcam():
     if request.method == 'POST':
         result = request.form
         selected = int(result.getlist('webcams')[0])
-        global cam
         cam.select_webcam(selected)
     return index()
 
 @app.route("/freeze_settings")
 def freeze_settings():
-    global cam
     cam.manual_settings()
     return '', 204
 
 @app.route("/unfreeze_settings")
 def unfreeze_settings():
-    global cam
     cam.auto_settings()
     return '', 204
 
@@ -69,13 +64,11 @@ def get_data():
 
 @app.route('/stop_data')
 def stop_data():
-    global cam
     cam.measure_frames = False
     return '', 204
 
 @app.route('/start_data')
 def start_data():
-    global cam
     cam.measure_frames = True
     return '', 204
 
